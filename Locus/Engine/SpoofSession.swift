@@ -296,7 +296,7 @@ final class SpoofSession: ObservableObject {
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
             pairingPath: pairing.pairingPath,
-            deviceIP: TunnelConfig.targetIP
+            deviceIP: TunnelConfig.resolvedDeviceIP
         )
         isBusy = false
         switch result {
@@ -345,7 +345,7 @@ final class SpoofSession: ObservableObject {
                     latitude: sim.latitude,
                     longitude: sim.longitude,
                     pairingPath: pairing.pairingPath,
-                    deviceIP: TunnelConfig.targetIP
+                    deviceIP: TunnelConfig.resolvedDeviceIP
                 )
             }
         }

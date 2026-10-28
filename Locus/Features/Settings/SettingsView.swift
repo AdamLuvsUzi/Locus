@@ -75,6 +75,15 @@ struct SettingsView: View {
                         Text(LocalDevVPN.isConnected ? "Connected" : "Not connected")
                             .foregroundStyle(LocalDevVPN.isConnected ? LocusTheme.statusGood : LocusTheme.statusWarn)
                     }
+                    LabeledContent("Will dial") {
+                        Text(TunnelConfig.resolvedDeviceIP)
+                            .foregroundStyle(.secondary)
+                    }
+                    if LocalDevVPN.localTunnelAddresses.contains(tunnelIP.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        Text("\(tunnelIP) is this iPhone’s own VPN address (LocalDevVPN’s “Tunnel IP”). Locus needs the “Device IP” instead, so it will dial \(TunnelConfig.resolvedDeviceIP).")
+                            .font(.footnote)
+                            .foregroundStyle(LocusTheme.statusWarn)
+                    }
                     Button("Save tunnel IP") {
                         TunnelConfig.setTargetIP(tunnelIP)
                     }
@@ -93,7 +102,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Tunnel")
                 } footer: {
-                    Text("Connect LocalDevVPN before teleporting. Default tunnel IP is 10.7.0.1. Start a spoof on Wi‑Fi first; it can keep working on cellular afterward.")
+                    Text("Connect LocalDevVPN before teleporting. Use LocalDevVPN’s “Device IP” (default 10.7.0.1), not its “Tunnel IP”. Start a spoof on Wi‑Fi first; it can keep working on cellular afterward.")
                 }
 
                 Section("Privacy") {
